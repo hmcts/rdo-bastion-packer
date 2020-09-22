@@ -1,0 +1,19 @@
+name: DevOps RDO Bastion Packer
+jobs:
+- job: Ubuntu1804
+  pool:
+    vmImage: 'ubuntu-18.04'
+
+  steps:
+  - checkout: self
+  - task: CmdLine@2
+    displayName: Test and validate packer syntax
+    inputs:
+      script: |
+        packer validate --syntax-only ubuntu.json
+  - task: CmdLine@2
+    displayName: Build and publish packer image
+    inputs:
+      script: |
+        packer build ubuntu.json
+    condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/heads/master'))
