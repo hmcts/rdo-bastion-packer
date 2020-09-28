@@ -11,15 +11,3 @@ jobs:
     inputs:
       script: |
         packer validate --syntax-only ubuntu.json
-
-  - task: CmdLine@2
-    displayName: Build and publish packer image
-    inputs:
-      script: |
-        packer build ubuntu.json
-    condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/heads/master'))
-    variables:
-      client_id: $(sbox_client_id)
-      client_secret: $(sbox_client_secret)
-      tenant_id: $(sbox_tenant_id)
-      subscription_id: $(sbox_subscription_id)
