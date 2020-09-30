@@ -14,7 +14,7 @@
     "tenant_id": "{{user `tenant_id`}}",
     "subscription_id": "{{user `subscription_id`}}",
 
-    "managed_image_resource_group_name": "rdoBastionPacker",
+    "managed_image_resource_group_name": "rdo-bastion-packer",
     "managed_image_name": "rdoBastionImage",
 
     "os_type": "Linux",
