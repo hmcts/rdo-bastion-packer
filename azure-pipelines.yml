@@ -16,6 +16,7 @@ jobs:
     displayName: Build and publish packer image Sandbox
     inputs:
       script: |
+        az group create --location uksouth --name rdo-bastion-packer --subscription ea3a8c1e-af9d-4108-bc86-a7e2d267f49c
         packer build ubuntu.json
     env:
       client_id: $(client_id)
@@ -28,6 +29,7 @@ jobs:
     displayName: Build and publish packer image NonProd
     inputs:
       script: |
+        az group create --location uksouth --name rdo-bastion-packer --subscription fb084706-583f-4c9a-bdab-949aac66ba5c
         packer build ubuntu.json
     env:
       client_id: $(client_id)
@@ -40,6 +42,7 @@ jobs:
     displayName: Build and publish packer image Prod
     inputs:
       script: |
+        az group create --location uksouth --name rdo-bastion-packer --subscription 0978315c-75fe-4ada-9d11-1eb5e0e0b214
         packer build ubuntu.json
     env:
       client_id: $(client_id)

@@ -5,7 +5,7 @@
     "tenant_id": "{{env `tenant_id`}}",
     "subscription_id": "{{env `subscription_id`}}"
   },
-  
+
   "builders": [{
     "type": "azure-arm",
 
@@ -14,8 +14,8 @@
     "tenant_id": "{{user `tenant_id`}}",
     "subscription_id": "{{user `subscription_id`}}",
 
-    "managed_image_resource_group_name": "rdoBastionPacker",
-    "managed_image_name": "rdoBastionImage",
+    "managed_image_resource_group_name": "rdo-bastion-packer",
+    "managed_image_name": "rdo-bastion-image",
 
     "os_type": "Linux",
     "image_publisher": "Canonical",
