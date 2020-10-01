@@ -6,45 +6,44 @@ jobs:
 
   steps:
   - checkout: self
-  - task: CmdLine@2
+  - task: AzureCLI@2
     displayName: Test and validate packer syntax
     inputs:
-      script: |
+      azureSubscription: dts-management-sbox-intsvc
+      scriptType: bash
+      scriptLocation: inlineScript
+      inlineScript: |
         packer validate --syntax-only ubuntu.json
 
-  - task: CmdLine@2
+  - task: AzureCLI@2
     displayName: Build and publish packer image Sandbox
     inputs:
-      script: |
-        packer build ubuntu.json
-    env:
-      client_id: $(client_id)
-      client_secret: $(client_secret)
-      tenant_id: $(tenant_id)
-      subscription_id: ea3a8c1e-af9d-4108-bc86-a7e2d267f49c
+      azureSubscription: dts-management-sbox-intsvc
+      scriptType: bash
+      scriptLocation: inlineScript
+      inlineScript: |
+        az group create --location uksouth --name rdo-bastion-packer --subscription $(sbox_subscription_id)
+        packer build -var 'client_id=$(client_id)' -var 'client_secret=$(client_secret)' -var 'tenant_id=$(tenant_id)' -var 'subscription_id=$(sbox_subscription_id)' -var 'image_name=rdo-bastion-image-$(Build.BuildId)' -force ubuntu.json
     condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/heads/master'))
-    
-  - task: CmdLine@2
+
+  - task: AzureCLI@2
     displayName: Build and publish packer image NonProd
     inputs:
-      script: |
-        packer build ubuntu.json
-    env:
-      client_id: $(client_id)
-      client_secret: $(client_secret)
-      tenant_id: $(tenant_id)
-      subscription_id: fb084706-583f-4c9a-bdab-949aac66ba5c
+      azureSubscription: dts-management-nonprod-intsvc
+      scriptType: bash
+      scriptLocation: inlineScript
+      inlineScript: |
+        az group create --location uksouth --name rdo-bastion-packer --subscription $(nonprod_subscription_id)
+        packer build -var 'client_id=$(client_id)' -var 'client_secret=$(client_secret)' -var 'tenant_id=$(tenant_id)' -var 'subscription_id=$(nonprod_subscription_id)' -var 'image_name=rdo-bastion-image-$(Build.BuildId)' -force ubuntu.json
     condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/heads/master'))
 
-  - task: CmdLine@2
+  - task: AzureCLI@2
     displayName: Build and publish packer image Prod
     inputs:
-      script: |
-        packer build ubuntu.json
-    env:
-      client_id: $(client_id)
-      client_secret: $(client_secret)
-      tenant_id: $(tenant_id)
-      subscription_id: 0978315c-75fe-4ada-9d11-1eb5e0e0b214
+      azureSubscription: dts-management-prod-intsvc
+      scriptType: bash
+      scriptLocation: inlineScript
+      inlineScript: |
+        az group create --location uksouth --name rdo-bastion-packer --subscription $(prod_subscription_id)
+        packer build -var 'client_id=$(client_id)' -var 'client_secret=$(client_secret)' -var 'tenant_id=$(tenant_id)' -var 'subscription_id=$(prod_subscription_id)' -var 'image_name=rdo-bastion-image-$(Build.BuildId)' -force ubuntu.json
     condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/heads/master'))
-

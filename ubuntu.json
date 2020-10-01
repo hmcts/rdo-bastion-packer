@@ -2,13 +2,13 @@
   "builders": [{
     "type": "azure-arm",
 
-    "client_id": "{{env `client_id`}}",
-    "client_secret": "{{env `client_secret`}}",
-    "tenant_id": "{{env `tenant_id`}}",
-    "subscription_id": "{{env `subscription_id`}}",
+    "client_id": "{{user `client_id`}}",
+    "client_secret": "{{user `client_secret`}}",
+    "tenant_id": "{{user `tenant_id`}}",
+    "subscription_id": "{{user `subscription_id`}}",
 
-    "managed_image_resource_group_name": "rdoBastionPacker",
-    "managed_image_name": "rdoBastionImage",
+    "managed_image_resource_group_name": "rdo-bastion-packer",
+    "managed_image_name": "{{user `image_name`}}",
 
     "os_type": "Linux",
     "image_publisher": "Canonical",
