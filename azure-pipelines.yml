@@ -15,7 +15,7 @@ jobs:
       scriptLocation: inlineScript
       inlineScript: |
         packer validate --syntax-only ubuntu.json
-    env:
+    arguments:
       client_id: $(client_id)
       client_secret: $(client_secret)
       tenant_id: $(tenant_id)
