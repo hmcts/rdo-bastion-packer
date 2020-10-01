@@ -10,7 +10,7 @@ jobs:
   - task: AzureCLI@2
     displayName: Azure CLI
     inputs:
-      azureSubscription: 
+      azureSubscription: dts-management-sbox-intsvc
       scriptType: bash
       scriptLocation: inlineScript
       inlineScript: |
