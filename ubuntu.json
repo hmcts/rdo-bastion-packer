@@ -8,7 +8,7 @@
     "subscription_id": "{{user `subscription_id`}}",
 
     "managed_image_resource_group_name": "rdo-bastion-packer",
-    "managed_image_name": "rdo-bastion-image",
+    "managed_image_name": "{{user `image_name`}}",
 
     "os_type": "Linux",
     "image_publisher": "Canonical",
