@@ -91,13 +91,8 @@ replication_regions = ["UK South"]
 build {
 sources = ["source.azure-arm.azure-os-image"]
 
-provisioner "file" {
-source = "repos/"
-destination = "/tmp/"
-}
-
 provisioner "shell" {
-execute_command = "echo '${var.ssh_password}' | {{ .Vars }} sudo -S -E sh '{{ .Path }}'"
+execute_command = "echo '${var.ssh_password}' | {{ .Vars }} sudo -S -E bash '{{ .Path }}'"
 script          = "provision-bastion.sh"
 }
 
