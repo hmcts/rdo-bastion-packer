@@ -81,7 +81,7 @@ vm_size                           = "Standard_DS2_v2"
 shared_image_gallery_destination {
 subscription        = var.subscription_id
 resource_group      = var.gallery_resource_group_name
-gallery_name        = "cnpimagegallery"
+gallery_name        = "shared-image-gallery"
 image_name          = "bastion-ubuntu"
 image_version       = var.azure_image_version
 replication_regions = ["UK South"]

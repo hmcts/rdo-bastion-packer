@@ -13,7 +13,7 @@ jobs:
       scriptType: bash
       scriptLocation: inlineScript
       inlineScript: |
-        packer validate --syntax-only ubuntu.json
+        packer validate --syntax-only ubuntu.pkr.hcl
 
   - task: AzureCLI@2
     displayName: Build and publish packer image Sandbox
@@ -23,7 +23,7 @@ jobs:
       scriptLocation: inlineScript
       inlineScript: |
         az group create --location uksouth --name rdo-bastion-packer --subscription $(sbox_subscription_id)
-        packer build -var 'client_id=$(client_id)' -var 'client_secret=$(client_secret)' -var 'tenant_id=$(tenant_id)' -var 'subscription_id=$(sbox_subscription_id)' -var 'image_name=rdo-bastion-image-$(Build.BuildId)' -force ubuntu.json
+        packer build -var 'client_id=$(client_id)' -var 'client_secret=$(client_secret)' -var 'tenant_id=$(tenant_id)' -var 'subscription_id=$(sbox_subscription_id)' -var 'image_name=rdo-bastion-image-$(Build.BuildId)' -force ubuntu.pkr.hcl
     condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/heads/master'))
 
   - task: AzureCLI@2
@@ -34,7 +34,7 @@ jobs:
       scriptLocation: inlineScript
       inlineScript: |
         az group create --location uksouth --name rdo-bastion-packer --subscription $(nonprod_subscription_id)
-        packer build -var 'client_id=$(client_id)' -var 'client_secret=$(client_secret)' -var 'tenant_id=$(tenant_id)' -var 'subscription_id=$(nonprod_subscription_id)' -var 'image_name=rdo-bastion-image-$(Build.BuildId)' -force ubuntu.json
+        packer build -var 'client_id=$(client_id)' -var 'client_secret=$(client_secret)' -var 'tenant_id=$(tenant_id)' -var 'subscription_id=$(nonprod_subscription_id)' -var 'image_name=rdo-bastion-image-$(Build.BuildId)' -force ubuntu.pkr.hcl
     condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/heads/master'))
 
   - task: AzureCLI@2
@@ -45,5 +45,5 @@ jobs:
       scriptLocation: inlineScript
       inlineScript: |
         az group create --location uksouth --name rdo-bastion-packer --subscription $(prod_subscription_id)
-        packer build -var 'client_id=$(client_id)' -var 'client_secret=$(client_secret)' -var 'tenant_id=$(tenant_id)' -var 'subscription_id=$(prod_subscription_id)' -var 'image_name=rdo-bastion-image-$(Build.BuildId)' -force ubuntu.json
+        packer build -var 'client_id=$(client_id)' -var 'client_secret=$(client_secret)' -var 'tenant_id=$(tenant_id)' -var 'subscription_id=$(prod_subscription_id)' -var 'image_name=rdo-bastion-image-$(Build.BuildId)' -force ubuntu.pkr.hcl
     condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/heads/master'))
