@@ -1,4 +1,4 @@
-name: DevOps Bastion Packer
+name: Bastion Packer
 jobs:
 - job: Ubuntu1804
   pool:
