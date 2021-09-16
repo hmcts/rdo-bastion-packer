@@ -1,60 +1,48 @@
 variable "client_id" {
-  type    = string
   default = ""
 }
 
 variable "client_secret" {
-  type    = string
   default = ""
 }
 
 variable "azure_image_version" {
-  type    = string
   default = "1.0.0"
 }
 
 variable "azure_location" {
-  type    = string
   default = "uksouth"
 }
 
 variable "azure_object_id" {
-  type    = string
   default = ""
 }
 
 variable "azure_resource_group_name" {
-  type    = string
   default = ""
 }
 
 variable "azure_storage_account" {
-  type    = string
   default = ""
 }
 
 variable "subscription_id" {
-  type    = string
   default = ""
 }
 
 variable "tenant_id" {
-  type    = string
   default = ""
 }
 
 variable "ssh_user" {
-  type    = string
   default = ""
 }
 
 variable "ssh_password" {
-  type    = string
   default = ""
 }
 
 variable "gallery_resource_group_name" {
-  type    = string
   default = ""
 }
 
