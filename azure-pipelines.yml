@@ -26,6 +26,7 @@ jobs:
         --location uksouth \
         --name rdo-bastion-packer \
         --subscription $(prod_subscription_id)
+
         packer build \
         -var 'client_id=$(client_id)' \
         -var 'client_secret=$(client_secret)' \
