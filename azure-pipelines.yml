@@ -1,4 +1,4 @@
-name: DevOps RDO Bastion Packer
+name: DevOps Bastion Packer
 jobs:
 - job: Ubuntu1804
   pool:
@@ -32,6 +32,6 @@ jobs:
         -var 'client_secret=$(client_secret)' \
         -var 'tenant_id=$(tenant_id)' \
         -var 'subscription_id=$(prod_subscription_id)' \
-        -var 'image_name=rdo-bastion-image-$(Build.BuildId)' \
+        -var 'image_name=bastion-image-$(Build.BuildId)' \
         -force ubuntu.pkr.hcl
     condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/heads/master'))
