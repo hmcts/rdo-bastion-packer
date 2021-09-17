@@ -19,7 +19,7 @@ variable "azure_object_id" {
 }
 
 variable "azure_resource_group_name" {
-  default = ""
+  default = "bastion-packer"
 }
 
 variable "azure_storage_account" {
