@@ -18,7 +18,7 @@ variable "azure_object_id" {
   default = ""
 }
 
-variable "azure_resource_group_name" {
+variable "resource_group_name" {
   default = "bastion-packer"
 }
 
@@ -42,10 +42,6 @@ variable "ssh_password" {
   default = ""
 }
 
-variable "gallery_resource_group_name" {
-  default = ""
-}
-
 variable "image_name" {
   default = "bastion-ubuntu"
 }
@@ -62,7 +58,7 @@ source "azure-arm" "azure-os-image" {
   image_sku                         = "18.04-LTS"
   location                          = var.azure_location
   managed_image_name                = "bastion-ubuntu-${formatdate("YYYYMMDDhhmmss", timestamp())}"
-  managed_image_resource_group_name = var.azure_resource_group_name
+  managed_image_resource_group_name = var.resource_group_name
   os_type                           = "Linux"
   ssh_pty                           = "true"
   ssh_username                      = var.ssh_user
@@ -72,7 +68,7 @@ source "azure-arm" "azure-os-image" {
 
   shared_image_gallery_destination {
     subscription        = var.subscription_id
-    resource_group      = var.gallery_resource_group_name
+    resource_group      = var.resource_group_name
     gallery_name        = "shared-image-gallery"
     image_name          = var.image_name
     image_version       = var.azure_image_version
