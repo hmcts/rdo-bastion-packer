@@ -46,6 +46,10 @@ variable "gallery_resource_group_name" {
   default = ""
 }
 
+variable "image_name" {
+  default = "bastion-ubuntu"
+}
+
 source "azure-arm" "azure-os-image" {
   azure_tags = {
     imagetype = "bastion-ubuntu"
@@ -70,7 +74,7 @@ source "azure-arm" "azure-os-image" {
     subscription        = var.subscription_id
     resource_group      = var.gallery_resource_group_name
     gallery_name        = "shared-image-gallery"
-    image_name          = "bastion-ubuntu"
+    image_name          = var.image_name
     image_version       = var.azure_image_version
     replication_regions = ["UK South"]
   }
