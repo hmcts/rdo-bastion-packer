@@ -53,8 +53,8 @@ source "azure-arm" "azure-os-image" {
   }
   client_id                         = var.client_id
   client_secret                     = var.client_secret
-  image_offer                       = "bastion-ubuntu"
-  image_publisher                   = "hmcts"
+  image_offer                       = "UbuntuServer"
+  image_publisher                   = "Canonical"
   image_sku                         = "18.04-LTS"
   location                          = var.azure_location
   managed_image_name                = "bastion-ubuntu-${formatdate("YYYYMMDDhhmmss", timestamp())}"
