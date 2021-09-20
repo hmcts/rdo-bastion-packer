@@ -24,7 +24,7 @@ jobs:
       inlineScript: |
         az group create \
         --location uksouth \
-        --name bastion-packer \
+        --name bastion-ubuntu \
         --subscription $(prod_subscription_id)
 
         packer build \
