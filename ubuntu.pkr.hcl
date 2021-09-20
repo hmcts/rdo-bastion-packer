@@ -19,7 +19,7 @@ variable "azure_object_id" {
 }
 
 variable "resource_group_name" {
-  default = "bastion-packer"
+  default = "hmcts-image-gallery-rg"
 }
 
 variable "azure_storage_account" {
