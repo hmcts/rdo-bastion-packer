@@ -19,7 +19,7 @@ variable "azure_object_id" {
 }
 
 variable "resource_group_name" {
-  default = "bastion-packer"
+  default = "hmcts-image-gallery-rg"
 }
 
 variable "azure_storage_account" {
@@ -69,7 +69,7 @@ source "azure-arm" "azure-os-image" {
   shared_image_gallery_destination {
     subscription        = var.subscription_id
     resource_group      = var.resource_group_name
-    gallery_name        = "shared-image-gallery"
+    gallery_name        = "hmcts"
     image_name          = var.image_name
     image_version       = var.azure_image_version
     replication_regions = ["UK South"]
