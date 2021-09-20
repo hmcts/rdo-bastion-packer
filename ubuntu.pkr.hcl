@@ -53,8 +53,8 @@ source "azure-arm" "azure-os-image" {
   }
   client_id                         = var.client_id
   client_secret                     = var.client_secret
-  image_offer                       = "UbuntuServer"
-  image_publisher                   = "Canonical"
+  image_offer                       = "bastion-ubuntu"
+  image_publisher                   = "hmcts"
   image_sku                         = "18.04-LTS"
   location                          = var.azure_location
   managed_image_name                = "bastion-ubuntu-${formatdate("YYYYMMDDhhmmss", timestamp())}"
@@ -69,7 +69,7 @@ source "azure-arm" "azure-os-image" {
   shared_image_gallery_destination {
     subscription        = var.subscription_id
     resource_group      = var.resource_group_name
-    gallery_name        = "shared-image-gallery"
+    gallery_name        = "hmcts"
     image_name          = var.image_name
     image_version       = var.azure_image_version
     replication_regions = ["UK South"]
