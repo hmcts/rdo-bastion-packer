@@ -1,5 +1,5 @@
 variable "client_id" {
-  default = ""
+  default = "ac08155b-375d-4604-9be0-c0774f70c878"
 }
 
 variable "client_secret" {
