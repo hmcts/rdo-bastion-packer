@@ -3,7 +3,7 @@ variable "client_id" {
 }
 
 variable "client_secret" {
-  default = ""
+  default = $(client-secret)
 }
 
 variable "azure_image_version" {
