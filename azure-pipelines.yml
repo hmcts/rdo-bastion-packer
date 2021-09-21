@@ -15,6 +15,13 @@ jobs:
       inlineScript: |
         packer validate --syntax-only ubuntu.pkr.hcl
 
+  - task: AzureKeyVault@1
+    inputs:
+      azureSubscription: 'DTS-MANAGEMENT-PROD-INTSVC'
+      KeyVaultName: 'bastion-prod-hmcts-kv'
+      SecretsFilter: 'client-secret'
+      RunAsPreJob: false
+
   - task: CmdLine@2
     displayName: Build and publish packer image Prod
     inputs:
