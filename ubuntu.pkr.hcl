@@ -2,10 +2,6 @@ variable "client_id" {
   default = "ac08155b-375d-4604-9be0-c0774f70c878"
 }
 
-variable "client_secret" {
-  default = ""
-}
-
 variable "azure_image_version" {
   default = "1.0.1"
 }
@@ -46,13 +42,36 @@ variable "image_name" {
   default = "bastion-ubuntu"
 }
 
+variable "keyvault_name" {
+  default = "bastion-prod-hmcts-kv"
+}
+
+variable "kv_resource_group_name" {
+  default = "bastion-prod-rg"
+}
+
+variable "secret_name" {
+  default = "client-secret"
+}
+
+data "azurerm_key_vault" "keyvault" {
+  name                = "${var.keyvault_name}"
+  resource_group_name = "${var.kv_resource_group_name}"
+}
+
+data "azurerm_key_vault_secret" "client_secret" {
+  name         = "${var.secret_name}"
+  key_vault_id = "${data.azurerm_key_vault.keyvault.id}"
+}
+
+
 source "azure-arm" "azure-os-image" {
   azure_tags = {
     imagetype = "bastion-ubuntu"
     timestamp = formatdate("YYYYMMDDhhmmss", timestamp())
   }
   client_id                         = var.client_id
-  client_secret                     = var.client_secret
+  client_secret                     = data.azurerm_key_vault_secret.client_secret.value
   image_offer                       = "UbuntuServer"
   image_publisher                   = "Canonical"
   image_sku                         = "18.04-LTS"
