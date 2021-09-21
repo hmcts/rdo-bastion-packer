@@ -15,23 +15,14 @@ jobs:
       inlineScript: |
         packer validate --syntax-only ubuntu.pkr.hcl
 
-  - task: AzureCLI@2
+  - task: CmdLine@2
     displayName: Build and publish packer image Prod
     inputs:
-      azureSubscription: dts-management-prod-intsvc
-      scriptType: bash
-      scriptLocation: inlineScript
-      inlineScript: |
-        az group create \
-        --location uksouth \
-        --name bastion-packer \
-        --subscription $(prod_subscription_id)
-
-        packer build \
-        -var 'client_id=$(client_id)' \
-        -var 'client_secret=$(client_secret)' \
-        -var 'tenant_id=$(tenant_id)' \
-        -var 'subscription_id=$(prod_subscription_id)' \
-        -var 'image_name=bastion-image-$(Build.BuildId)' \
-        -force ubuntu.pkr.hcl
+      script: |
+        packer build ubuntu.pkr.hcl
+    env:
+      client_id: $(client_id)
+      client_secret: $(client_secret)
+      tenant_id: $(tenant_id)
+      subscription_id: 2b1afc19-5ca9-4796-a56f-574a58670244
     condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/heads/master'))
