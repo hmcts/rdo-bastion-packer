@@ -1,11 +1,3 @@
-variable "client_id" {
-  default = "ac08155b-375d-4604-9be0-c0774f70c878"
-}
-
-variable "client_secret" {
-  default = ""
-}
-
 variable "azure_image_version" {
   default = "1.0.1"
 }
@@ -27,7 +19,7 @@ variable "azure_storage_account" {
 }
 
 variable "subscription_id" {
-  default = ""
+  default = "2b1afc19-5ca9-4796-a56f-574a58670244"
 }
 
 variable "tenant_id" {
@@ -46,27 +38,11 @@ variable "image_name" {
   default = "bastion-ubuntu"
 }
 
-variable "keyvault_name" {
-  default = "bastion-prod-hmcts-kv"
-}
-
-variable "kv_resource_group_name" {
-  default = "bastion-prod-rg"
-}
-
-variable "secret_name" {
-  default = "client-secret"
-}
-
-
 source "azure-arm" "azure-os-image" {
   azure_tags = {
     imagetype = "bastion-ubuntu"
     timestamp = formatdate("YYYYMMDDhhmmss", timestamp())
   }
-
-  client_id                         = var.client_id
-  client_secret                     = var.client_secret
   image_offer                       = "UbuntuServer"
   image_publisher                   = "Canonical"
   image_sku                         = "18.04-LTS"
