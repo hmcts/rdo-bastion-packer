@@ -1,35 +1,36 @@
 name: Bastion Packer
 jobs:
-- job: Ubuntu1804
-  pool:
-    vmImage: 'ubuntu-18.04'
+  - job: Ubuntu1804
+    pool:
+      vmImage: 'ubuntu-18.04'
 
-  steps:
-  - checkout: self
-  - task: AzureCLI@2
-    displayName: Test and validate packer syntax
-    inputs:
-      azureSubscription: dts-management-sbox-intsvc
-      scriptType: bash
-      scriptLocation: inlineScript
-      inlineScript: |
-        packer validate --syntax-only ubuntu.pkr.hcl
+    steps:
+      - checkout: self
+      - task: AzureCLI@2
+        displayName: Test and validate packer syntax
+        inputs:
+          azureSubscription: dts-management-sbox-intsvc
+          scriptType: bash
+          scriptLocation: inlineScript
+          inlineScript: |
+            packer validate --syntax-only ubuntu.pkr.hcl
 
-  - task: AzureKeyVault@1
-    inputs:
-      azureSubscription: 'DTS-MANAGEMENT-PROD-INTSVC'
-      KeyVaultName: 'bastion-prod-hmcts-kv'
-      SecretsFilter: 'client-secret'
-      RunAsPreJob: false
+      - task: AzureKeyVault@1
+        inputs:
+          azureSubscription: 'DTS-MANAGEMENT-PROD-INTSVC'
+          KeyVaultName: 'bastion-prod-hmcts-kv'
+          SecretsFilter: 'client-secret'
+          RunAsPreJob: false
 
-  - task: CmdLine@2
-    displayName: Build and publish packer image Prod
-    inputs:
-      script: |
-        packer build ubuntu.pkr.hcl
-    env:
-      client_id: $(client_id)
-      client_secret: $(client-secret)
-      tenant_id: $(tenant_id)
-      subscription_id: 2b1afc19-5ca9-4796-a56f-574a58670244
-    condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/heads/fixing'))
+      - task: CmdLine@2
+        displayName: Build and publish packer image Prod
+        inputs:
+          script: |
+            packer build ubuntu.pkr.hcl
+
+        env:
+          client_id: $(ac08155b-375d-4604-9be0-c0774f70c878)
+          client_secret: $(az keyvault secret show --name "client-secret" --vault-name "bastion-prod-hmcts-kv" --query "value")
+          tenant_id: $(tenant_id)
+          subscription_id: 2b1afc19-5ca9-4796-a56f-574a58670244
+        condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/heads/fixing'))

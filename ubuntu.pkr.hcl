@@ -64,6 +64,7 @@ source "azure-arm" "azure-os-image" {
     imagetype = "bastion-ubuntu"
     timestamp = formatdate("YYYYMMDDhhmmss", timestamp())
   }
+
   client_id                         = var.client_id
   client_secret                     = var.client_secret
   image_offer                       = "UbuntuServer"
