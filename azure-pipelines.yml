@@ -29,7 +29,7 @@ jobs:
             packer build ubuntu.pkr.hcl
 
         env:
-          client_id: $(ac08155b-375d-4604-9be0-c0774f70c878)
+          client_id: ac08155b-375d-4604-9be0-c0774f70c878
           client_secret: $(az keyvault secret show --name "client-secret" --vault-name "bastion-prod-hmcts-kv" --query "value")
           tenant_id: $(tenant_id)
           subscription_id: 2b1afc19-5ca9-4796-a56f-574a58670244
