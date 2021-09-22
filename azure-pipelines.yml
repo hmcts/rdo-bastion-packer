@@ -18,5 +18,7 @@ jobs:
       - task: PackerBuild@1
         inputs:
           connectedServiceName: DTS-MANAGEMENT-PROD-INTSVC
+          azureResourceGroup: hmcts-image-gallery-rg
+        condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/heads/master'))
 
 
