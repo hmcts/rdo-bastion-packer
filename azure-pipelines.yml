@@ -19,13 +19,13 @@ jobs:
         displayName: Build and publish packer image Prod
         inputs:
           azureSubscription: dts-management-prod-intsvc
+          addSpnToEnvironment: true
           scriptType: bash
           scriptLocation: inlineScript
           inlineScript: |
             packer build \
-            -var 'client_id=$(client_id)' \
-            -var 'client_secret=$(client_secret)' \
-            -var 'tenant_id=$(tenant_id)' \
-            -var 'subscription_id=$(prod_subscription_id)' \
+            -var 'client_id=$env:servicePrincipalId' \
+            -var 'client_secret=$env:servicePrincipalKey' \
+            -var 'tenant_id=$env:tenantId' \
             ubuntu.pkr.hcl
         condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/heads/master'))
