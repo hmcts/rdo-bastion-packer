@@ -6,26 +6,20 @@ jobs:
 
     steps:
       - checkout: self
-      - task: AzureCLI@2
-        displayName: Test and validate packer syntax
+      - task: riezebosch.Packer.PackerTool.PackerTool@0
+        displayName: 'Install Packer'
         inputs:
-          azureSubscription: dts-management-sbox-intsvc
-          scriptType: bash
-          scriptLocation: inlineScript
-          inlineScript: |
-            packer validate --syntax-only ubuntu.pkr.hcl
+          version: 1.7.4
 
-      - task: AzureCLI@2
-        displayName: Build and publish packer image Prod
+      - task: riezebosch.Packer.Packer.Packer@1
+        displayName: 'Validate'
         inputs:
+          command: validate
           azureSubscription: dts-management-prod-intsvc
-          addSpnToEnvironment: true
-          scriptType: bash
-          scriptLocation: inlineScript
-          inlineScript: |
-            packer build \
-            -var 'client_id=$env:servicePrincipalId' \
-            -var 'client_secret=$env:servicePrincipalKey' \
-            -var 'tenant_id=$env:tenantId' \
-            ubuntu.pkr.hcl
+
+      - task: riezebosch.Packer.Packer.Packer@1
+        displayName: 'Build'
         condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/heads/master'))
+        inputs:
+          command: build
+          azureSubscription: dts-management-prod-intsvc
