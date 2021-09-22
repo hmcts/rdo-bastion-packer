@@ -38,6 +38,14 @@ variable "image_name" {
   default = "bastion-ubuntu"
 }
 
+variable "client_secret" {
+  default = ""
+}
+
+variable "client_id" {
+  default = ""
+}
+
 source "azure-arm" "azure-os-image" {
   azure_tags = {
     imagetype = "bastion-ubuntu"
