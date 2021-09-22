@@ -23,4 +23,4 @@ jobs:
         env:
           tenant_id: $(tenant_id)
           subscription_id: 2b1afc19-5ca9-4796-a56f-574a58670244
-        condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/heads/fixing'))
+        condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/heads/master'))
