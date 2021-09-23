@@ -19,7 +19,7 @@ variable "azure_storage_account" {
 }
 
 variable "subscription_id" {
-  default = "2b1afc19-5ca9-4796-a56f-574a58670244"
+  default = ""
 }
 
 variable "tenant_id" {

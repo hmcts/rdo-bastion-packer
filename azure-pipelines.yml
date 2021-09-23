@@ -19,7 +19,7 @@ jobs:
 
       - task: riezebosch.Packer.Packer.Packer@1
         displayName: 'Build'
-        condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/heads/master'))
+        condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/heads/fix-pipeline'))
         inputs:
           command: build
           azureSubscription: dts-management-prod-intsvc
