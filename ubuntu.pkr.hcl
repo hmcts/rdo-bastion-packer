@@ -19,7 +19,7 @@ variable "azure_storage_account" {
 }
 
 variable "subscription_id" {
-  default = "2b1afc19-5ca9-4796-a56f-574a58670244"
+  default = ""
 }
 
 variable "tenant_id" {
@@ -62,6 +62,8 @@ source "azure-arm" "azure-os-image" {
   ssh_username                      = var.ssh_user
   subscription_id                   = var.subscription_id
   tenant_id                         = var.tenant_id
+  client_id                         = var.client_id
+  client_secret                     = var.client_secret
   vm_size                           = "Standard_DS2_v2"
 
   shared_image_gallery_destination {
