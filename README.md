@@ -20,4 +20,4 @@ packages=(az gpg java jq kubectl nmap psql tcpdump)
 
 When this pipeline runs, a new image version will be created in the Shared Image Gallery.
 
-To redeploy the bastions based on the updated image version, update the image_id for each environment in the hmcts/bastion repo.
+To redeploy the bastions based on the updated image version, update the image_version for each environment in the hmcts/bastion repo.
