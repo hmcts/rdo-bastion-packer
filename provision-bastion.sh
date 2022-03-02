@@ -12,9 +12,9 @@ echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https:/
 apt-get update
 apt-get upgrade -y
 
-apt-get -y install apt-transport-https azure-cli ca-certificates curl gnupg jq kubectl lsb-release nmap openjdk-11-jre-headless postgresql tcpdump parallel
+apt-get -y install apt-transport-https azure-cli ca-certificates curl gnupg jq kubectl lsb-release nmap openjdk-11-jre-headless postgresql tcpdump parallel redis-cli
 
-packages=(az gpg java jq kubectl nmap psql tcpdump)
+packages=(az gpg java jq kubectl nmap psql tcpdump redis-cli)
 
 for i in ${packages[@]}
 
