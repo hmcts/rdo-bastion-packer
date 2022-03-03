@@ -1,8 +1,8 @@
 name: Bastion Packer
 jobs:
-  - job: Ubuntu1804
+  - job: Linux
     pool:
-      vmImage: 'ubuntu-18.04'
+      vmImage: 'ubuntu-latest'
 
     steps:
       - checkout: self
