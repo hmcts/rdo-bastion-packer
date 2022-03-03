@@ -11,13 +11,13 @@ jobs:
         inputs:
           version: 1.7.4
 
-      - task: riezebosch.Packer.Packer.Packer@1
+      - task: riezebosch.Packer.Packer.Packer@0
         displayName: 'Validate'
         inputs:
           command: validate
           azureSubscription: dts-management-prod-intsvc
 
-      - task: riezebosch.Packer.Packer.Packer@1
+      - task: riezebosch.Packer.Packer.Packer@0
         displayName: 'Build'
         condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/heads/master'))
         inputs:
