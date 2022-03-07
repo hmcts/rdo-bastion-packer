@@ -1,5 +1,5 @@
 variable "azure_image_version" {
-  default = "1.0.4"
+  default = "1.0.3"
 }
 
 variable "azure_location" {
@@ -53,7 +53,7 @@ source "azure-arm" "azure-os-image" {
   }
   image_offer                       = "0001-com-ubuntu-server-focal"
   image_publisher                   = "Canonical"
-  image_sku                         = "20_04-lts-gen2"
+  image_sku                         = "20_04-lts"
   location                          = var.azure_location
   managed_image_name                = "bastion-ubuntu-${formatdate("YYYYMMDDhhmmss", timestamp())}"
   managed_image_resource_group_name = var.resource_group_name
