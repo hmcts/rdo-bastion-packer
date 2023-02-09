@@ -1,5 +1,5 @@
 variable "azure_image_version" {
-  default = "1.0.3"
+  default = "1.0.4"
 }
 
 variable "azure_location" {
