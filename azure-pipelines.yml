@@ -3,7 +3,11 @@ jobs:
   - job: Linux
     pool:
       vmImage: 'ubuntu-latest'
-
+    strategy:
+      matrix:
+        Ubuntu:
+          os: Ubuntu
+          templatePath: ubuntu.pkr.hcl
     steps:
       - checkout: self
       - task: AzureCLI@2.208.0
@@ -24,7 +28,7 @@ jobs:
       - task: riezebosch.Packer.PackerTool.PackerTool@0
         displayName: 'Install Packer'
         inputs:
-          version: 1.7.4
+          version: 1.9.1
 
       - task: riezebosch.Packer.Packer.Packer@0
         displayName: 'Validate'
@@ -36,5 +40,8 @@ jobs:
         displayName: 'Build'
         condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/heads/master'))
         inputs:
+          templatePath: $(templatePath)
           command: build
           azureSubscription: dts-management-prod-intsvc
+          variables: |
+              azure_image_version=$(get_azure_image_version.azure_image_version)
