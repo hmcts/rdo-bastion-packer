@@ -38,7 +38,7 @@ jobs:
 
       - task: riezebosch.Packer.Packer.Packer@0
         displayName: 'Build'
-        # condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/heads/master'))
+        condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/heads/master'))
         inputs:
           templatePath: $(templatePath)
           command: build
