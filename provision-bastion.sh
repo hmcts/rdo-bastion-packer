@@ -15,6 +15,10 @@ sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgd
 apt-get update
 apt-get upgrade -y
 
+apt update
+
+apt install -y azure-cli
+
 apt-get -y install apt-transport-https azure-cli ca-certificates curl gnupg jq kubectl lsb-release nmap openjdk-11-jre-headless openjdk-17-jre-headless postgresql tcpdump parallel redis-server
 
 packages=(az gpg java jq kubectl nmap psql tcpdump redis-server)
