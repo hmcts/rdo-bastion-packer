@@ -64,7 +64,7 @@ source "azure-arm" "azure-os-image" {
   tenant_id                         = var.tenant_id
   client_id                         = var.client_id
   client_secret                     = var.client_secret
-  vm_size                           = "Standard_DS2_v5"
+  vm_size                           = "Standard_D2ds_v5"
 
   shared_image_gallery_destination {
     subscription        = var.subscription_id
