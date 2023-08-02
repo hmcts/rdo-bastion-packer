@@ -1,4 +1,29 @@
 name: Bastion Packer
+
+schedules:
+  # Run once a week
+  - cron: '0 3 * * 1'  # Every monday at 3am UTC
+    displayName: Weekly scheduled build # friendly name given to a specific schedule
+    branches:
+      include:
+      - master
+    always: true
+
+trigger:
+  branches:
+    include:
+      - master
+  paths:
+    include:
+    - azure-pipelines.yml
+    - ubuntu.pkr.hcl
+    - provision-bastion
+
+pr:
+  branches:
+    include:
+      - master
+
 jobs:
   - job: Linux
     pool:
@@ -28,7 +53,7 @@ jobs:
       - task: riezebosch.Packer.PackerTool.PackerTool@0
         displayName: 'Install Packer'
         inputs:
-          version: 1.7.4
+          version: 1.9.1
 
       - task: riezebosch.Packer.Packer.Packer@0
         displayName: 'Validate'
@@ -45,3 +70,19 @@ jobs:
           azureSubscription: dts-management-prod-intsvc
           variables: |
               azure_image_version=$(get_azure_image_version.azure_image_version)
+
+      - task: GitHubRelease@1
+        displayName: Create GitHubRelease
+        condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/heads/master'))
+        inputs:
+          gitHubConnection: 'GitHub Management - Full Repo Access'
+          repositoryName: '$(Build.Repository.Name)'
+          action: 'create'
+          target: '$(Build.SourceVersion)'
+          tagSource: 'userSpecifiedTag'
+          tag: '$(get_azure_image_version.azure_image_version)'
+          title: '$(get_azure_image_version.azure_image_version)'
+          releaseNotesSource: inline
+          releaseNotesInline: 'Regular maintenance updates for non-pinned packages'
+          addChangeLog: true
+          compareWith: 'lastFullRelease'
