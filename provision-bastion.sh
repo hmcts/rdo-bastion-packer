@@ -1,6 +1,7 @@
 #!/bin/bash -xe
 
 export DEBIAN_FRONTEND=noninteractive
+export KUBECTL_VERSION=$(echo v1.26.0 | tr -d 'v')
 
 apt autoremove -y
 
@@ -23,17 +24,19 @@ echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https:/
 echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list
 wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
 
+wget https://dl.k8s.io/release/v${KUBECTL_VERSION}/bin/linux/amd64/kubectl -O /usr/local/bin/kubectl
+chmod +x /usr/local/bin/kubectl
+
 apt-get update
 apt-get upgrade -y
 
 apt update
 
-apt install -y azure-cli gnupg kubectl
-# apt-transport-https ca-certificates curl gnupg jq kubectl lsb-release nmap openjdk-11-jre-headless openjdk-17-jre-headless postgresql tcpdump parallel redis-server
+apt install -y apt-transport-https azure-cli ca-certificates curl gnupg jq lsb-release nmap openjdk-11-jre-headless openjdk-17-jre-headless postgresql tcpdump parallel redis-server
+# apt-transport-https ca-certificates curl gnupg jq lsb-release nmap openjdk-11-jre-headless openjdk-17-jre-headless postgresql tcpdump parallel redis-server
 # apt-get -y install apt-transport-https azure-cli ca-certificates curl gnupg jq kubectl lsb-release nmap openjdk-11-jre-headless openjdk-17-jre-headless postgresql tcpdump parallel redis-server
 
-# packages=(az gpg java jq kubectl nmap psql tcpdump redis-server)
-packages=(az gpg kubectl)
+packages=(az gpg java jq nmap psql tcpdump redis-server)
 
 for i in ${packages[@]}
 
