@@ -28,10 +28,12 @@ apt-get upgrade -y
 
 apt update
 
-apt install -y azure-cli apt-transport-https ca-certificates curl gnupg jq kubectl lsb-release nmap openjdk-11-jre-headless openjdk-17-jre-headless postgresql tcpdump parallel redis-server
+apt install -y azure-cli 
+# apt-transport-https ca-certificates curl gnupg jq kubectl lsb-release nmap openjdk-11-jre-headless openjdk-17-jre-headless postgresql tcpdump parallel redis-server
 # apt-get -y install apt-transport-https azure-cli ca-certificates curl gnupg jq kubectl lsb-release nmap openjdk-11-jre-headless openjdk-17-jre-headless postgresql tcpdump parallel redis-server
 
-packages=(az gpg java jq kubectl nmap psql tcpdump redis-server)
+# packages=(az gpg java jq kubectl nmap psql tcpdump redis-server)
+packages=(az)
 
 for i in ${packages[@]}
 
