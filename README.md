@@ -18,7 +18,7 @@ packages=(az gpg java jq nmap psql tcpdump)
 
 ## Deploying updated bastions
 
-When this pipeline runs, a new image version will be created in the Shared Image Gallery.
+If updates are made to the provisioh-bastion.sh script then update the azure_image_version variable to increment the version within ubuntu.pkr.hcl  When this pipeline runs, a new image version will be created in the Shared Image Gallery.
 
 To redeploy the bastions based on the updated image version, update the image_version for each environment in the hmcts/bastion repo.
 
